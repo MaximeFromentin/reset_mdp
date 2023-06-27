@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reinitialisation de mot de passe</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <style>
+    body {
+      font-family: Arial;
+      background-color: rgb(34, 55, 238);
+    }
+
+    .container {
+      position: relative;
+      width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #cccccc;
+      border-radius: 25px;
+      background-color: #aaa0a0;
+    }
+
+    .container img.logo {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 70px;
+      margin: 10px;
+    }
+
+    .container h2 {
+      text-align: center;
+    }
+
+    .container label {
+      display: block;
+      align-items: center;
+      justify-content: flex-end;
+      margin-bottom: 10px;
+    }
+
+    .container label input[type="checkbox"]
+    .container input[type="password"],
+    .container input[type="submit"] {
+      background-color: #0b40ee;
+      border-radius: 15px;
+      color: white;
+      border: none;
+      margin: 0 auto;
+      padding: 11px;
+      border-radius: 20px;
+      cursor: pointer;
+      text-align: center;
+      height: 32px;
+      overflow: hidden;
+    }
+
+    .container .login-text {
+      margin-left: 120px;
+    }
+    button {
+      background-color: #0b40ee;
+      border-radius: 15px;
+      color: white;
+      border: none;
+      margin: 0 auto;
+      padding: 11px;
+      border-radius: 20px;
+      cursor: pointer;
+      text-align: center;
+      height: 32px;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <br>
+  <br>
+  <div class="container">
+    <img class="logo" src="logo-sdis.png" alt="Logo SDIS">
+    <div class="login-text">
+      <h2>Reinitialisation de mot de passe</h2>
+      <form onsubmit="handleSubmit(event)">
+        <p>
+          <label>
+            <input type="checkbox" id="resetAll" name="resetAll" onchange="handleResetAllChange()">
+            Réinitialisation totale
+          </label>
+        </p>
+        <p id="phoneInputContainer" style="display: none;">
+          <label for="phoneNumber">Numéro de téléphone :</label>
+          <input type="tel" id="phoneNumber" name="phoneNumber" pattern="[0-9]{10}">
+          <button id="sendButton" onclick="handleSendCode()">Envoyer le code</button>
+        </p>
+        <p id="CodeVerification" style="display: none;">
+          <label for="codeverif">Code de vérification :</label>
+          <input type="tel" id="codeverif" name="codeverif">
+        <p>
+          <label>
+            <input type="checkbox" id="oldPassword" name="oldPassword" onchange="handleOldPasswordChange()">
+            Réinitialisation avec ancien mot de passe :
+          </label>
+          <input type="password" id="oldPasswordInput" name="oldPasswordInput" disabled>
+        </p>
+        <p>
+          <label for="newPassword">Nouveau mot de passe :</label>
+          <input type="password" id="newPassword" name="newPassword" required>
+        </p>
+        <input type="submit" value="Réinitialiser le mot de passe">
+      </form>
+    </div>
+  </div>
+  <script>
+    function handleResetAllChange() {
+      var resetAllCheckbox = document.getElementById('resetAll');
+      var phoneInputContainer = document.getElementById('phoneInputContainer');
+      
+      if (resetAllCheckbox.checked) {
+        phoneInputContainer.style.display = 'block';
+      } else {
+        phoneInputContainer.style.display = 'none';
+      }
+    }
+    
+    function handleOldPasswordChange() {
+      var oldPasswordCheckbox = document.getElementById('oldPassword');
+      var oldPasswordInput = document.getElementById('oldPasswordInput');
+      
+      if (oldPasswordCheckbox.checked) {
+        oldPasswordInput.disabled = false;
+      } else {
+        oldPasswordInput.disabled = true;
+      }
+    }
+    
+    function handleSubmit(event) {
+      event.preventDefault();
+
+      var resetAllCheckbox = document.getElementById('resetAll');
+      var oldPasswordCheckbox = document.getElementById('oldPassword');
+      var oldPasswordInput = document.getElementById('oldPasswordInput');
+      var newPasswordInput = document.getElementById('newPassword');
+
+      if (resetAllCheckbox.checked) {
+        var phoneNumber = document.getElementById('phoneNumber').value;
+        
+        if (phoneNumber === '') {
+          alert("Veuillez saisir votre numéro de téléphone.");
+          return;
+        }
+        
+        // Envoyer un SMS sur le téléphone avec le code de vérification
+        // Code pour envoyer un SMS ici
+        
+        alert("Un SMS a été envoyé sur votre téléphone pour la réinitialisation totale.");
+      } else if (oldPasswordCheckbox.checked) {
+        var oldPassword = oldPasswordInput.value;
+        var newPassword = newPasswordInput.value;
+
+        if (oldPassword === '') {
+          alert("Veuillez saisir l'ancien mot de passe.");
+          return;
+        }
+
+        // Effectuer la réinitialisation avec l'ancien mot de passe
+        // Code pour réinitialiser le mot de passe ici
+
+        alert("Le mot de passe a été réinitialisé avec succès !");
+      } else {
+        alert("Veuillez sélectionner une option de réinitialisation.");
+      }
+    }
+    function handleCheckboxChange(){
+      var resetAllCheckbox = document.getElementById('resetAll');
+  var oldPasswordCheckbox = document.getElementById('oldPassword');
+  var newPasswordInput = document.getElementById('newPassword');
+
+  if (!resetAllCheckbox.checked && !oldPasswordCheckbox.checked) {
+    newPasswordInput.disabled = true;
+  } else {
+    newPasswordInput.disabled = false;
+  }
+}
+
+// Écoute des changements de cases à cocher
+var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+checkboxes.forEach(function(checkbox) {
+  checkbox.addEventListener('change', handleCheckboxChange);
+});
+
+handleCheckboxChange();
+
+function handleSendCode() {
+  var phoneNumberInput = document.getElementById('phoneNumber');
+  var phoneNumber = phoneNumberInput.value;
+  
+  if (phoneNumber === '') {
+    alert("Veuillez saisir votre numéro de téléphone.");
+    return;
+  }
+  
+  // Generate and send the verification code to the phone number
+  var verificationCode = generateVerificationCode(); // Replace with your code for generating the code
+  
+  alert("Un code de vérification a été envoyé sur votre téléphone.");
+}
+
+  </script>
+</body>
+</html>

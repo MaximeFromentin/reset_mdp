@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Page de connexion</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <style>
+    body {
+      font-family: Arial;
+      background-color: rgb(34, 55, 238);
+    }
+    .container {
+      position: relative;
+      width: 350px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #cccccc;
+      border-radius: 25px;
+      background-color: #aaa0a0;
+    }
+    .container h2 {
+      text-align: center
+    }
+    .container label, .container input[type="text"], .container input[type="password"] {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .container input[type="submit"] {
+      background-color: #0b40ee;
+      border-radius: 15px;
+      color: white;
+      border: none;
+      margin: 0 auto;
+      padding: 11px;
+      border-radius: 20px;
+      cursor: pointer;
+      text-align: center;
+      height: 32px;
+      overflow: hidden;
+    }
+    .container img.logo {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 70px;
+      margin: 4px;
+    }
+    .container .login-text {
+      margin-left: 120px;
+      margin: 0 auto;
+      max-width: 220px;
+      margin-top: 0;
+    }
+    .container a {
+      display: block;
+      font-weight: bold;
+      text-align: center;
+      color: #0b40ee;
+      text-decoration: none;
+      margin-top: 10px;
+    }
+
+    .container a:hover {
+      text-decoration: underline;
+      color: #ee1a0b;
+    }
+
+    p {
+      font-size: 25px;
+      text-align: center;
+      color: white;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<p>Bienvenue sur la page de connexion !</p>
+  <div class="container">
+    <img class="logo" src="logo-sdis.png" alt="Logo SDIS">
+    <div class="login-text">
+      <h2>Connexion</h2>
+      <form method="post" onsubmit="redirectToExternalSite()">
+        <label for="username">Nom d'utilisateur :</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password">Mot de passe :</label>
+        <input type="password" id="password" name="password" required>
+        <input type="submit" value="Se connecter" formaction="https://www.sdis80.fr/">
+      </form>
+      <a href="reset.html">Mot de passe oublié ?</a>
+  </div>
+</body>
+</html>
